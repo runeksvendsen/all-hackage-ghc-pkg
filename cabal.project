@@ -1,0 +1,4 @@
+packages: *.cabal
+with-compiler: /nix/store/s1kgm1kkh7h5gaphxww212lkpccwqsk8-ghc-8.10.7/bin/ghc
+
+

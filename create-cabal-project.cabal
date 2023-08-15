@@ -1,0 +1,26 @@
+cabal-version:   3.8
+name:            create-cabal-project
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Rune K. Svendsen
+maintainer:      runesvend@gmail.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+    exposed-modules:  MyLib
+    build-depends:    base, text, process, containers, aeson, bytestring, temporary, directory, utf8-string
+    hs-source-dirs:   src
+    default-language: Haskell2010
+
+executable create-cabal-project
+    import:           warnings
+    main-is:          Main.hs
+    build-depends:    base, create-cabal-project
+    hs-source-dirs:   app
+    default-language: Haskell2010
