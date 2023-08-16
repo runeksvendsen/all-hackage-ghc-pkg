@@ -37,10 +37,13 @@ cOMPILER_PATH = "/nix/store/4gc0mizanhf1gbhfpkdmxasa0gl3jbak-ghc-9.6.2/bin/ghc"
 
 main :: IO ()
 main = do
-  [drvFilePath] <- System.Environment.getArgs
-  drvFileContent <- BS8.readFile drvFilePath
-  let drvPathList = map (DrvPath . T.decodeUtf8With T.lenientDecode) $ BS8.lines drvFileContent
-  main' drvPathList
+  args <- System.Environment.getArgs
+  case args of
+    [drvFilePath] -> do
+      drvFileContent <- BS8.readFile drvFilePath
+      let drvPathList = map (DrvPath . T.decodeUtf8With T.lenientDecode) $ BS8.lines drvFileContent
+      main' drvPathList
+    other -> fail $ "Expected single argument: path to file containing one store derivation per line. Got: " <> show other
 
 withTmpDir
   :: String
