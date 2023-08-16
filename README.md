@@ -1,0 +1,27 @@
+# All Hackage packages in GHC package DB
+
+Obtain a shell in which all working Hackage packages are installed into the GHC package DB.
+
+## TODO
+
+- [ ] Implement workaround/fix for https://github.com/NixOS/cabal2nix/issues/607
+- [ ] Filter off packages that fail to build when running nix-shell for the .nix file produced by cabal2nix
+  -  ```
+      The following packages are broken, either because they have a problem
+      listed above, or because they depend on a broken package.
+      hercules-ci-cnix-expr-0.3.5.1
+      ```
+
+## Steps
+
+First run `find-non-broken.sh` to get a list of all working Hackage packages. Note that this takes quite a while, so if you want you can skip this step and just use the precomputed output of this command (`data/good-custom.txt`).
+
+```bash
+./find-non-broken.sh > data/good-custom.txt
+```
+
+Next run the Haskell exe that produces the .nix file for the shell. This is run in a separate nix-shell to provide the needed runtime dependencies.
+
+```bash
+./run.sh
+```
