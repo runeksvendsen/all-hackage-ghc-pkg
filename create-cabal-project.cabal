@@ -1,5 +1,5 @@
-cabal-version:   3.8
-name:            create-cabal-project
+cabal-version:   2.4
+name:            all-hackage-ghc-pkg
 version:         0.1.0.0
 license:         BSD-3-Clause
 license-file:    LICENSE
@@ -14,13 +14,22 @@ common warnings
 library
     import:           warnings
     exposed-modules:  MyLib
-    build-depends:    base, text, process, containers, aeson, bytestring, temporary, directory, utf8-string
+    build-depends:    base
+                    , text
+                    , process
+                    , containers
+                    , aeson
+                    , bytestring
+                    , temporary
+                    , directory
+                    , utf8-string
+                    , filepath
     hs-source-dirs:   src
     default-language: Haskell2010
 
-executable create-cabal-project
+executable all-hackage-ghc-pkg
     import:           warnings
     main-is:          Main.hs
-    build-depends:    base, create-cabal-project
+    build-depends:    base, all-hackage-ghc-pkg
     hs-source-dirs:   app
     default-language: Haskell2010

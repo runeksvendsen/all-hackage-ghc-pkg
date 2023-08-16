@@ -1,4 +1,4 @@
-# Revision history for create-cabal-project
+# Revision history for all-hackage-ghc-pkg
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
