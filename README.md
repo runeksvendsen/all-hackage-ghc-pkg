@@ -20,8 +20,8 @@ First run `find-non-broken.sh` to get a list of all working Hackage packages. No
 ./find-non-broken.sh > data/good-custom.txt
 ```
 
-Next run the Haskell exe that produces the .nix file for the shell. This is run in a separate nix-shell to provide the needed runtime dependencies.
+Next run the Haskell exe that produces the .nix file for the shell. This exe is run via the `run.sh` script that provides the needed runtime dependencies.
 
 ```bash
-./run.sh
+./run.sh data/good-custom.txt
 ```
