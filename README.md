@@ -16,7 +16,7 @@ Obtain a shell in which all working Hackage packages are installed into the GHC 
 
 ## Steps
 
-First run `find-non-broken.sh` to get a list of all working Hackage packages. Note that this takes quite a while, so if you want you can skip this step and just use the precomputed output of this command (`data/good-custom.txt`).
+First run `find-non-broken.sh` to get a list of all working Hackage packages. Note that this takes quite a while.
 
 ```bash
 ./find-non-broken.sh > data/good-custom.txt
