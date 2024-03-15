@@ -31,10 +31,6 @@ nix = "nix" -- version: 2.3.16
 cabal = "cabal" -- version: 3.4.0.0
 cabal2nix = "cabal2nix" -- version: 2.19.1
 
--- TODO: take as arg
-cOMPILER_PATH :: FilePath
-cOMPILER_PATH = "/nix/store/4gc0mizanhf1gbhfpkdmxasa0gl3jbak-ghc-9.6.2/bin/ghc"
-
 main :: IO ()
 main = do
   args <- System.Environment.getArgs
@@ -66,7 +62,7 @@ main' drvPathList = withTmpDir "all-hackage-ghc-pkg" $ \tmpDir -> do
   Dir.setCurrentDirectory tmpDir
   Right showDrv <- runCommand $ nixShowDerivation drvPathList
   let dependencies = map showDerivationToCabalDependency $ Map.elems showDrv
-  Right () <- runCommand $ cabalInit cabalPackageName cOMPILER_PATH dependencies
+  Right () <- runCommand $ cabalInit cabalPackageName dependencies
   Right shellNix <- runCommand $ cabal2NixCreateShellNix tmpDir -- </> cabalPackageName <> ".cabal")
   BSL8.putStrLn shellNix
   where
@@ -149,10 +145,9 @@ nixShowDerivation drvs =
 
 cabalInit
   :: String
-  -> FilePath
   -> [String]
   -> Command ()
-cabalInit pkgName compilerPath dependencies =
+cabalInit pkgName dependencies =
   Command cabal args (\_ _ -> pure ())
   where
     args =
@@ -165,7 +160,6 @@ cabalInit pkgName compilerPath dependencies =
       , "--author=Blah"
       , "--email=blah@blah.com"
       , "--language=Haskell2010"
-      , "--with-compiler=" <> compilerPath
       ] ++ concatMap (\dependency -> "-d" : dependency : []) dependencies
 
 cabal2NixCreateShellNix
