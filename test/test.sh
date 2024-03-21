@@ -7,7 +7,7 @@ NUM_DRVS=10
 
 mv "$DRV_LIST_FILE" "$DRV_LIST_FILE.bak"
 
-SHELL_CMD=$("$(nix-build --arg ciPickRandomCount $NUM_DRVS --arg drvListFile \"$DRV_LIST_FILE\" build.nix)/bin/build.sh")
+SHELL_CMD=$("$(nix-build --no-out-link --arg ciPickRandomCount $NUM_DRVS --arg drvListFile \"$DRV_LIST_FILE\" build.nix)/bin/build.sh")
 
 if ! grep --silent -F "/nix/store/" "$DRV_LIST_FILE" ; then
   echo "Derivation list file does not contain any derivations. Perhaps increase NUM_DRVS?"
