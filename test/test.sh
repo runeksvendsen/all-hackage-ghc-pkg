@@ -2,10 +2,8 @@
 
 set -euo pipefail
 
-DRV_LIST_FILE="drv-list-test.txt"
+DRV_LIST_FILE="$(mktemp)-drv-list-test.txt"
 NUM_DRVS=10
-
-mv "$DRV_LIST_FILE" "$DRV_LIST_FILE.bak"
 
 ### Step 1:
 # Attempt to build $NUM_DRVS randomly picked Hackage libraries; write successfully built derivations to $DRV_LIST_FILE.
