@@ -17,12 +17,13 @@ pkgs.writeScriptBin "build.sh" ''
 
   set -euox pipefail
 
-  if [ ! -f "${drvListFile}" ]; then 
+  if [ ! -f "${drvListFile}" ]; then
     # WORKAROUND: https://github.com/NixOS/cabal2nix/issues/607
     ./find-non-broken.sh ${findNonBrokenArg} | grep --line-buffered -v -e '-if-0.1.0.0.drv' > ${drvListFile}
   else
     echo "INFO: The file ${drvListFile} already exists. Skipping 'find non-broken'-step. Remove the file to run this step." >&2
   fi
+  cabal update >&2
   cabal build all >&2
   $(cabal list-bin exe:all-hackage-ghc-pkg) ${drvListFile} > ${shellFile}
   # WORKAROUND: see README.md
