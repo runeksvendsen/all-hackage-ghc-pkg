@@ -16,14 +16,9 @@ Obtain a shell in which all working Hackage packages are installed into the GHC 
 
 ## Steps
 
-First run `find-non-broken.sh` to get a list of all working Hackage packages. Note that this takes quite a while.
+Run the Bash script produced by building [build.nix](build.nix) like so:
 
 ```bash
-./find-non-broken.sh > data/good-custom.txt
+$(nix-build build.nix)/bin/build.sh
 ```
 
-Next run the Haskell exe that produces the .nix file for the shell. This exe is run via the `run.sh` script that provides the needed runtime dependencies.
-
-```bash
-./run.sh data/good-custom.txt
-```
