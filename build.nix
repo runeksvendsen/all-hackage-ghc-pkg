@@ -7,7 +7,7 @@
 let
   pkgs = import ./nix/pkgs.nix {};
   shellNixFile = ./shell.nix;
-  shellCmd = ''nix-shell --arg nixpkgs 'import ./nix/pkgs.nix {}' --argstr compiler ghc962 ${shellFile}'';
+  shellCmd = ''nix-shell --arg nixpkgs 'import ./nix/pkgs.nix {}' --argstr compiler ghc965 ${shellFile}'';
   doneMessage = "Done! Run the following command to enter the shell:";
   findNonBrokenArg = if ciPickRandomCount != null then toString ciPickRandomCount else "";
 in

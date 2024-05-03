@@ -1,5 +1,5 @@
 { pkgs ? import ./pkgs.nix { system = "x86_64-linux"; }
-, get-hs-pkgs ? pkgs: pkgs.haskell.packages.ghc962
+, get-hs-pkgs ? pkgs: pkgs.haskell.packages.ghc965
 }:
 let
   hs-pkgs = get-hs-pkgs pkgs;
