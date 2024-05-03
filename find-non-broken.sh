@@ -20,5 +20,7 @@ for f in $STORE_PATHS; do
   nix-build --no-out-link --timeout $TIMEOUT_SECONDS $f  1>&2
   if [ $? -eq 0 ]; then
     echo $f
+  else
+    echo "$f" >> failures.log
   fi
 done
