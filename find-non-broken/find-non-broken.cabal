@@ -1,0 +1,61 @@
+cabal-version:      3.4
+name:               find-non-broken
+version:            0.1.0.0
+-- synopsis:
+-- description:
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Rune K. Svendsen
+maintainer:         runesvend@gmail.com
+-- copyright:
+category:           Development
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+-- extra-source-files:
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+    exposed-modules:  MyLib
+    -- other-modules:
+    -- other-extensions:
+    build-depends:
+        base,
+        text,
+        bytestring,
+        time,
+        process,
+        typed-process,
+        optparse-applicative,
+        temporary,
+        -- Just for 'UnliftIO.Async.pooledMapConcurrently'
+        unliftio
+
+    hs-source-dirs:   src
+    default-language: GHC2021
+
+executable find-non-broken
+    import:           warnings
+    main-is:          Main.hs
+    -- other-modules:
+    -- other-extensions:
+    build-depends:
+        base,
+        find-non-broken
+    hs-source-dirs:   app
+    default-language: GHC2021
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N
+
+test-suite find-non-broken-test
+    import:           warnings
+    default-language: GHC2021
+    -- other-modules:
+    -- other-extensions:
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:
+        base,
+        find-non-broken
