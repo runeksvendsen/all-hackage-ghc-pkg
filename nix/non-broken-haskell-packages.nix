@@ -1,4 +1,4 @@
-{ pkgs ? import ./pkgs.nix { system = "x86_64-linux"; }
+{ pkgs ? import ./pkgs.nix { system = builtins.currentSystem; }
 , get-hs-pkgs ? pkgs: pkgs.haskell.packages.ghc965
 }:
 let
