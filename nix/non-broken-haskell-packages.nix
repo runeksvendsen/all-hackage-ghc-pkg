@@ -1,5 +1,5 @@
 { pkgs ? import ./pkgs.nix { system = builtins.currentSystem; }
-, get-hs-pkgs ? pkgs: pkgs.haskell.packages.ghc965
+, get-hs-pkgs ? pkgs: pkgs.haskell.packages.ghc910
 }:
 let
   hs-pkgs = get-hs-pkgs pkgs;
