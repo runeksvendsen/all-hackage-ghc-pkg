@@ -6,6 +6,7 @@ on:
 
 jobs:
   nix-build:
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         nix_file: [nix/non-broken-haskell-packages.nix]
