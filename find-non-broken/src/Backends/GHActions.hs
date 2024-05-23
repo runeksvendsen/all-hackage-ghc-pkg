@@ -50,14 +50,14 @@ genYaml
   -> Map.Map T.Text DrvPath
   -> T.Text
 genYaml nixPackageSet packages = do
-  mkYaml "CI" (nixPackageSetNixFile nixPackageSet) (Map.keys packages)
+  mkYaml "CI" nixPackageSet (Map.keys packages)
 
 mkYaml
   :: T.Text
-  -> FilePath
+  -> NixPackageSet
   -> [T.Text]
   -> T.Text
-mkYaml workflowName nixFile packages = [i|
+mkYaml workflowName nixPackageSet packages = [i|
 name: #{workflowName}
 
 on:
@@ -68,7 +68,7 @@ jobs:
   nix-build:
     strategy:
       matrix:
-        nix_file: [#{nixFile}]
+        nix_file: [#{nixPackageSetNixFile nixPackageSet}]
         package: #{"[" <> T.intercalate ", " packages <> "]"}
     permissions:
       contents: read
@@ -77,5 +77,5 @@ jobs:
       - uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix-build -f ${{ matrix.nix_file }} -A ${{ matrix.package }}
+      - run: nix-build -f ${{ matrix.nix_file }} -A #{nixPackageSetAttribute nixPackageSet}.${{ matrix.package }}
 |] :: T.Text
