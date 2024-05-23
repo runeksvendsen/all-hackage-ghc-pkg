@@ -1,4 +1,4 @@
-name: TmpName
+name: Build Hackage packages
 
 on:
   push:
