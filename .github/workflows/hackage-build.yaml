@@ -8,6 +8,7 @@ jobs:
   nix-build:
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
         package: [yesod-session-persist, yesod-sitemap, yesod-static, yesod-table, yesod-tableview, yesod-test, yesod-websockets, yesod-websockets-extra, yet-another-logger, yi-gtk, yi-rope, yi-vty, yices-easy, yices-painless, yiyd, yjsvg, yjtools, yocto, yoga, youtube, yst, yu-auth, yu-utils, yx, z3, zalgo, zcache, zenacy-html, zenacy-unicode, zenc, zenhack-prelude, zeromq4-haskell, zeromq4-simple, zigzag, zim-parser, zinza, zip, zip-archive, zip-cmd, zip-stream, zippers, zlib, zlib-bindings, zlib-clib, zlib-conduit, zmidi-core, zot, zre, zstd, ztar, zxcvbn-c, zxcvbn-hs]
     permissions:
