@@ -18,7 +18,7 @@ common warnings
 
 library
     import:           warnings
-    exposed-modules:  MyLib
+    exposed-modules:  MyLib, Types, Backends.BuildLocally
     -- other-modules:
     -- other-extensions:
     build-depends:
