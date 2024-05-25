@@ -15,6 +15,7 @@ import qualified Data.Aeson
 import qualified Data.Text.IO as TIO
 import Data.String.Interpolate (i)
 import qualified Data.Map as Map
+import qualified System.IO
 
 run
   :: NixPackageSet
@@ -27,7 +28,7 @@ nixEval
   :: NixPackageSet
   -> IO (Map.Map T.Text DrvPath)
 nixEval (NixPackageSet nixFile attr) = do
-  putStrLn $ "Running command: " <> show cmd <> "..."
+  TIO.hPutStrLn System.IO.stderr $ "Running command: " <> T.replace "\n" "" (T.pack $ show cmd) <> "..."
   (exitCode, stdOut, stdErr) <- Proc.readProcess cmd
   when (exitCode /= Proc.ExitSuccess) $
     fail $ "Command " <> show cmd <> " failed with " <> show exitCode <> ". Stderr:" <> BSC8.unpack (BSL.toStrict stdErr)
@@ -66,9 +67,10 @@ on:
 
 jobs:
   nix-build:
+    runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
-        nix_file: [#{nixPackageSetNixFile nixPackageSet}]
         package: #{"[" <> T.intercalate ", " packages <> "]"}
     permissions:
       contents: read
@@ -77,5 +79,5 @@ jobs:
       - uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix-build -f ${{ matrix.nix_file }} -A #{nixPackageSetAttribute nixPackageSet}.${{ matrix.package }}
+      - run: nix-build #{nixPackageSetNixFile nixPackageSet} -A #{nixPackageSetAttribute nixPackageSet}.${{ matrix.package }}
 |] :: T.Text
